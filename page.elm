@@ -38,8 +38,8 @@ view : Model -> Html Msg
 view model =
     div [ class "container" ]
         [ header
-        , Markdown.toHtml [] model
-        ]
+         , content model
+        ] 
 
 
 header : Html a
@@ -49,19 +49,23 @@ header =
     [ text "navigation"]
 
 
-url : String
-url =
-    "http://localhost:8000/test.md"
+content : Model -> Html a
+content model = Markdown.toHtml [] model
 
 
-fetchTask : Task Http.Error String
-fetchTask =
-    Http.getString url
+url : String -> String
+url mdfile =
+    "http://localhost:8000/" ++ mdfile
+
+
+fetchTask : String -> Task Http.Error String
+fetchTask mdfile =
+    Http.getString (url mdfile)
 
 
 fetchCmd : Cmd Msg
 fetchCmd =
-    Task.perform FetchError FetchSuccess fetchTask
+    Task.perform FetchError FetchSuccess (fetchTask "test.md")
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
