@@ -25,13 +25,15 @@ type Msg
     | FetchError Http.Error
 
 
-type alias Model =
-    String
+type alias Model = 
+    { name: String
+    , text: String
+    }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( "", fetchCmd )
+    ( {name= "", text=""}, fetchCmd {name="index.md", text=""} )
 
 
 view : Model -> Html Msg
@@ -50,7 +52,7 @@ header =
 
 
 content : Model -> Html a
-content model = Markdown.toHtml [] model
+content model = Markdown.toHtml [] model.text
 
 
 url : String -> String
@@ -63,20 +65,20 @@ fetchTask mdfile =
     Http.getString (url mdfile)
 
 
-fetchCmd : Cmd Msg
-fetchCmd =
-    Task.perform FetchError FetchSuccess (fetchTask "test.md")
+fetchCmd : Model -> Cmd Msg
+fetchCmd model =
+    Task.perform FetchError FetchSuccess (fetchTask model.name)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Fetch ->
-            ( model, fetchCmd )
+            ( model, fetchCmd model )
 
-        FetchSuccess name ->
-            ( name, Cmd.none )
+        FetchSuccess text ->
+            ( {name = model.name, text = text}, Cmd.none )
 
         FetchError error ->
-            ( toString error, Cmd.none )
+            ( {name="", text=toString error}, Cmd.none )
 
