@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - "5.12"
+before_script:
+  - npm install -g elm
+  - elm-package install -y
+script: elm-make page.elm --output app.js
