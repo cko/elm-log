@@ -3,7 +3,7 @@ module Type exposing (..)
 import Http
 
 type Msg
-    = Fetch
+    = Fetch String
     | FetchSuccess String
     | FetchError Http.Error
 

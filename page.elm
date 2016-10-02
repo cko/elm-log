@@ -23,7 +23,7 @@ init =
 
 url : String -> String
 url mdfile =
-    "http://localhost:8000/" ++ mdfile
+    "http://localhost:8000/content/" ++ mdfile
 
 
 fetchTask : String -> Task Http.Error String
@@ -39,8 +39,8 @@ fetchCmd filename =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Fetch ->
-            ( model, fetchCmd model.name )
+        Fetch name ->
+            ( model, fetchCmd name )
 
         FetchSuccess text ->
             ( {name = model.name, text = text}, Cmd.none )
