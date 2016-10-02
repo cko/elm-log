@@ -1,3 +1,4 @@
+![Travis CI](https://travis-ci.org/cko/elm-log.svg)
 
 
     elm-package install
