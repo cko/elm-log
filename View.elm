@@ -10,8 +10,8 @@ import Type exposing (..)
 view : Model -> Html Msg
 view model =
     div [ class "container" ]
-        [ navigation model
-         , content model
+        [ 
+         Markdown.toHtml [] model.text
         ] 
 
 

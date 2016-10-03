@@ -1,0 +1,14 @@
+body {
+  font: 17pt/22pt "Helvetica Neue", Arial, sans-serif;
+  font-weight: bold;
+  letter-spacing: -0.75pt;
+  margin: 1.2em 1.5em;
+  color: #333;
+  background-color: #fff;
+  
+}
+
+a { color: #999; text-decoration: none; }
+a:visited { color: #555; }
+a:hover { color: #000; }
+div { max-width: 23.5em; text-align: justify;}
